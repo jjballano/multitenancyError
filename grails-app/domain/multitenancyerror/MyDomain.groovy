@@ -13,10 +13,16 @@ class MyDomain implements MultiTenant<MyDomain> {
     }
 
     def beforeInsert(){
-        tenantId = userId
+        if (tenantId == null){
+            //In case of @WithoutTenant in MyService
+            tenantId = userId
+        }
     }
 
     def beforeUpdate(){
-        tenantId = userId
+        if (tenantId == null){
+            //In case of @WithoutTenant in MyService
+            tenantId = userId
+        }
     }
 }
