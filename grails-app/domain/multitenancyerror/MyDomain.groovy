@@ -4,19 +4,7 @@ import grails.gorm.MultiTenant
 
 class MyDomain implements MultiTenant<MyDomain> {
 
+    Long tenantId
     Long userId
     Date date
-
-    Long tenantId
-
-    static constraints = {
-    }
-
-    def beforeInsert(){
-        tenantId = userId
-    }
-
-    def beforeUpdate(){
-        tenantId = userId
-    }
 }

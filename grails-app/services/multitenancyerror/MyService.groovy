@@ -1,5 +1,6 @@
 package multitenancyerror
 
+import grails.gorm.multitenancy.Tenants
 import grails.gorm.multitenancy.WithoutTenant
 import grails.gorm.transactions.Transactional
 
@@ -11,6 +12,8 @@ class MyService {
     @WithoutTenant
     def aSaveOperation(Date date) {
         MyDomain myDomain = new MyDomain(date: date, userId: 55)
-        myRepositoryService.save(myDomain)
+        Tenants.withId(myDomain.userId) {
+            myRepositoryService.save(myDomain)
+        }
     }
 }
